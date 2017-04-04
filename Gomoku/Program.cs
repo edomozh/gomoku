@@ -1,20 +1,20 @@
-﻿using System;
-
-namespace Gomoku
+﻿namespace Gomoku
 {
-	/// <summary>
-	/// The main class.
-	/// </summary>
+#if WINDOWS || LINUX
+	using System;
+
 	public static class Program
 	{
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
 		[STAThread]
-		static void Main()
+		public static void Main(string[] args)
 		{
-			using (var game = new Gomoku())
+			var dimension = (args.Length > 0) ? int.Parse(args[0]) : 15;
+			var cellSize = (args.Length > 1) ? int.Parse(args[1]) : 30;
+			using (var game = new Gomoku(dimension, cellSize))
+			{
 				game.Run();
+			}
 		}
 	}
+#endif
 }
