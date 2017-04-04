@@ -12,7 +12,7 @@
 
 		private Cursor _cursor;
 		private Board _board;
-		private Bot _bot;
+		private IBot _bot;
 
 		private readonly int _dimension;
 		private readonly int _cellsize;
@@ -42,7 +42,7 @@
 			State = GameState.Continues;
 			_board = new Board(this, _dimension, _cellsize, 1);
 			_board.OneMoreStep += CheckForWin;
-			_bot = new Bot(this, _board);
+			_bot = new Bot1(this, _board);
 			_bot.MakeMove(new Point());
 		}
 
@@ -60,7 +60,7 @@
 			{
 				case GameState.Continues: Window.Title = "Play"; break;
 				case GameState.UserWins: Window.Title = "User wins: press 'Enter' for restart."; break;
-				case GameState.BotWins: Window.Title = "Bot wins: press 'Enter' for restart."; break;
+				case GameState.BotWins: Window.Title = "Bot1 wins: press 'Enter' for restart."; break;
 				case GameState.Standoff: Window.Title = "Standoff: press 'Enter' for restart."; break;
 			}
 		}
