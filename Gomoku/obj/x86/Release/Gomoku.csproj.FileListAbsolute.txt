@@ -3,6 +3,7 @@ C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\C
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Content\music\desktop.ini
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Content\music\warcraft\desktop.ini
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\OpenTK.dll.config
+C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Gomoku.exe.config
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Gomoku.exe
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Gomoku.pdb
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\MonoGame.Framework.dll
