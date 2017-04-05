@@ -11,3 +11,4 @@ C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Debug\Ope
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Debug\NVorbis.dll
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\obj\x86\Debug\Gomoku.exe
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\obj\x86\Debug\Gomoku.pdb
+C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\obj\x86\Debug\Gomoku.csprojResolveAssemblyReference.cache

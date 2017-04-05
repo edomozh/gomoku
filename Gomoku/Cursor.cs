@@ -26,6 +26,5 @@
 		{
 			SpriteBatch.Draw(Texture, Rectangle, Color.White);
 		}
-
 	}
 }

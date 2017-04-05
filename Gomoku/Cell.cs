@@ -17,10 +17,10 @@
 						Color = Hower ? Light(Color.Gray, 40) : Color.Gray;
 						break;
 					case CellValue.User:
-						Color = Hower ? Light(Color.Purple, 40) : Color.Purple;
+						Color = Hower ? Light(Color.DarkBlue, 40) : Color.DarkBlue;
 						break;
 					case CellValue.Bot:
-						Color = Hower ? Light(Color.Green, 40) : Color.Green;
+						Color = Hower ? Light(Color.DarkOrange, 40) : Color.DarkOrange;
 						break;
 					default:
 						throw new ArgumentOutOfRangeException(nameof(value), value, null);
