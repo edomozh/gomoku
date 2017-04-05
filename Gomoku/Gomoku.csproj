@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="Bots\Bot2.cs" />
+    <Compile Include="Bots\BotUser.cs" />
     <Compile Include="Bots\IBot.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Values\CellValue.cs" />
@@ -53,33 +54,13 @@
     <Compile Include="Values\GameState.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Extended, Version=0.6.377.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MonoGame.Extended.0.6.377\lib\MonoGame.Extended.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MonoGame.Extended.Gui, Version=0.6.377.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MonoGame.Extended.Gui.0.6.377\lib\MonoGame.Extended.Gui.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MonoGame.Extended.Input, Version=0.6.377.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MonoGame.Extended.Input.0.6.377\lib\MonoGame.Extended.Input.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="OpenTK">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\OpenTK.dll</HintPath>
-    </Reference>
-    <Reference Include="NVorbis">
-      <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\NVorbis.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gomoku.ico" />

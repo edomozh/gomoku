@@ -34,16 +34,17 @@
 		{
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
 			_cursor = new Cursor(this, "cursor", 20, 20);
+			_board = new Board(this, _dimension, _cellsize, 1);
+			_board.OneMoreStep += CheckForWin;
+			_bot = new Bot1(this, _board);
 			NewGame();
 		}
 
 		private void NewGame()
-		{	
+		{
+			_board.Clear();
 			State = GameState.Continues;
-			_board = new Board(this, _dimension, _cellsize, 1);
-			_board.OneMoreStep += CheckForWin;
-			_bot = new Bot1(this, _board);
-			_bot.MakeMove(new Point());
+			_bot.MakeMove();
 		}
 
 		private void CheckForWin(Point pos, CellValue value)
@@ -59,19 +60,17 @@
 			switch (State)
 			{
 				case GameState.Continues: Window.Title = "Play"; break;
-				case GameState.UserWins: Window.Title = "User wins: press 'Enter' for restart."; break;
-				case GameState.BotWins: Window.Title = "Bot1 wins: press 'Enter' for restart."; break;
-				case GameState.Standoff: Window.Title = "Standoff: press 'Enter' for restart."; break;
+				case GameState.UserWins: Window.Title = "User wins: right click for restart."; break;
+				case GameState.BotWins: Window.Title = "Bot wins: right click for restart."; break;
+				case GameState.Standoff: Window.Title = "Standoff: right click for restart."; break;
 			}
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			var state = Keyboard.GetState();
-			if (state.IsKeyDown(Keys.Escape)) Exit();
-			if (state.IsKeyDown(Keys.Enter)) NewGame();
+			if (Mouse.GetState().RightButton == ButtonState.Pressed) NewGame();
 
-			if (State == GameState.Continues)_board.Update(gameTime);
+			if (State == GameState.Continues) _board.Update(gameTime);
 			_cursor.Update(gameTime);
 
 			base.Update(gameTime);

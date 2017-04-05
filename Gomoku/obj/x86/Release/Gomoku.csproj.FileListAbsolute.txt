@@ -5,13 +5,8 @@ C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\C
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\OpenTK.dll.config
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Gomoku.exe
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Gomoku.pdb
-C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\MonoGame.Extended.dll
-C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\MonoGame.Extended.Gui.dll
-C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\MonoGame.Extended.Input.dll
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\MonoGame.Framework.dll
-C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Newtonsoft.Json.dll
-C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\NVorbis.dll
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\OpenTK.dll
-C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\Newtonsoft.Json.xml
+C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\bin\DesktopGL\x86\Release\NVorbis.dll
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\obj\x86\Release\Gomoku.exe
 C:\Users\Egor\Google Диск\Projects\Gomoku\Gomoku\obj\x86\Release\Gomoku.pdb

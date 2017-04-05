@@ -1,6 +1,7 @@
 ﻿namespace Gomoku
 {
 	using System;
+	using System.Linq;
 	using Microsoft.Xna.Framework;
 
 	internal class Bot1 : IBot
@@ -14,10 +15,10 @@
 			_game = game;
 			_board = board;
 			_rnd = new Random();
-			_board.OneMoreStep += (p, v) => { if (v == CellValue.User) MakeMove(p); };
+			_board.OneMoreStep += (p, v) => { if (v == CellValue.User) MakeMove(); };
 		}
 
-		public void MakeMove(Point lastMove)
+		public void MakeMove()
 		{
 			if (_game.State != GameState.Continues) return;
 
@@ -29,12 +30,12 @@
 			}
 			else
 			{
-				pos = GetBestMove(lastMove);
+				pos = GetBestMove(_board.GetMap());
 			}
 			_board.MakeMove(pos, CellValue.Bot);
 		}
 
-		private Point GetBestMove(Point lastMove)
+		private Point GetBestMove(CellValue[,] map)
 		{
 			var max = 0;
 			var res = new Point();
@@ -51,12 +52,7 @@
 
 		private int GetWeight(Point pos)
 		{
-			var weight = 0;
-			foreach (var dir in Direction.Values)
-			{
-				weight += GetOneNeighborWeight(pos, dir);
-				weight += GetOneNeighborWeight(pos, dir * new Point(2));
-			}
+			var weight = Direction.Values.Sum(dir => GetOneNeighborWeight(pos, dir));
 
 			if (_board.IsConnectAmount(pos, CellValue.User, 2)) weight += 10;
 			if (_board.IsConnectAmount(pos, CellValue.Bot, 2)) weight += 20;
@@ -72,11 +68,12 @@
 
 		private int GetOneNeighborWeight(Point pos, Point dir)
 		{
+			var weight = 0;
 			var newp = pos + dir;
 			if (!_board.InBourd(newp)) return 0;
-			if (_board.GetValue(newp) == CellValue.User) return 1;
-			if (_board.GetValue(newp) == CellValue.Bot) return 2;
-			return 0;
+			if (_board.GetValue(newp) == CellValue.User) weight += 1;
+			if (_board.GetValue(newp) == CellValue.Bot) weight += 2;
+			return weight;
 		}
 	}
 }
