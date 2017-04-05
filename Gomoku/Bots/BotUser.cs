@@ -14,8 +14,10 @@
 			_game = game;
 			_board = board;
 			_rnd = new Random();
+			_board.OneMoreStep += (p, v) => { if (v == CellValue.Bot) MakeMove(); };
 		}
 
+		public void MakeMove()
 		{
 			if (_game.State != GameState.Continues) return;
 
@@ -27,10 +29,12 @@
 			}
 			else
 			{
+				pos = GetBestMove(_board.GetMap());
 			}
 			_board.MakeMove(pos, CellValue.User);
 		}
 
+		private Point GetBestMove(CellValue[,] map)
 		{
 			var max = 0;
 			var res = new Point();

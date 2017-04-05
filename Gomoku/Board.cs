@@ -38,6 +38,22 @@
 			OneMoreStep?.Invoke(pos, value);
 		}
 
+		public CellValue[,] GetMap()
+		{
+			var map = new CellValue[Dimension, Dimension];
+			for (var x = 0; x < Dimension; x++)
+				for (var y = 0; y < Dimension; y++)
+					map[x, y] = _cells[x, y].Value;
+			return map;
+		}
+
+		public void Clear()
+		{
+			for (var x = 0; x < Dimension; x++)
+				for (var y = 0; y < Dimension; y++)
+					_cells[x, y].Value = CellValue.None;
+		}
+
 		private Point GetPosition(Cell cell)
 		{
 			for (var y = 0; y < Dimension; y++)
@@ -48,17 +64,17 @@
 
 		public bool IsConnectAmount(Point pos, CellValue val, int numb)
 		{
-			return CheckAmount(pos, val, Direction.Down, Direction.Up, numb)
-				|| CheckAmount(pos, val, Direction.Right, Direction.Left, numb)
-				|| CheckAmount(pos, val, Direction.DownLeft, Direction.UpRight, numb)
-				|| CheckAmount(pos, val, Direction.LeftUp, Direction.RightDown, numb);
+			return CheckAmount(pos, val, Direction.Down, Direction.Up, numb) == numb
+				|| CheckAmount(pos, val, Direction.Right, Direction.Left, numb) == numb
+				|| CheckAmount(pos, val, Direction.DownLeft, Direction.UpRight, numb) == numb
+				|| CheckAmount(pos, val, Direction.LeftUp, Direction.RightDown, numb) == numb;
 		}
 
-		private bool CheckAmount(Point pos, CellValue value, Point dir1, Point dir2, int numb)
+		private int CheckAmount(Point pos, CellValue value, Point dir1, Point dir2,int numb)
 		{
 			var count = 1;
 			Point check;
-			for (var i = 1; i < numb; i++)
+			for (var i = 1; i <= numb; i++)
 			{
 				check = pos + dir1 * new Point(i);
 				if (!InBourd(check)) break;
@@ -66,14 +82,14 @@
 				else break;
 			}
 
-			for (var i = 1; i < numb; i++)
+			for (var i = 1; i <= numb; i++)
 			{
 				check = pos + dir2 * new Point(i);
 				if (!InBourd(check)) break;
 				if (_cells[check.X, check.Y].Value == value) count++;
 				else break;
 			}
-			return count > numb - 1;
+			return count;
 		}
 
 		public override void Update(GameTime gameTime)

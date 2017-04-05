@@ -1,6 +1,7 @@
 ﻿namespace Gomoku
 {
 	using System;
+	using System.Linq;
 	using Microsoft.Xna.Framework;
 
 	internal class Bot2 : IBot
@@ -9,15 +10,18 @@
 		private readonly Board _board;
 		private readonly Gomoku _game;
 
+		private bool InRange(Point pos, CellValue[,] map)
+			=> pos.X > 0 && pos.Y > 0 && pos.X < map.GetLength(0) && pos.Y < map.GetLength(1);
+
 		public Bot2(Gomoku game, Board board)
 		{
 			_game = game;
 			_board = board;
 			_rnd = new Random();
-			_board.OneMoreStep += (p, v) => { if (v == CellValue.User) MakeMove(p); };
+			_board.OneMoreStep += (p, v) => { if (v == CellValue.User) MakeMove(); };
 		}
 
-		public void MakeMove(Point lastMove)
+		public void MakeMove()
 		{
 			if (_game.State != GameState.Continues) return;
 
@@ -29,54 +33,74 @@
 			}
 			else
 			{
-				pos = GetBestMove(lastMove);
+				pos = GetBestMove(_board.GetMap());
 			}
 			_board.MakeMove(pos, CellValue.Bot);
 		}
 
-		private Point GetBestMove(Point lastMove)
+		private Point GetBestMove(CellValue[,] map)
 		{
 			var max = 0;
-			var res = new Point();
-			for (var y = 0; y < _board.Dimension; y++)
-				for (var x = 0; x < _board.Dimension; x++)
+			var resp = new Point();
+			for (var y = 0; y < map.GetLength(0); y++)
+				for (var x = 0; x < map.GetLength(1); x++)
 				{
 					var pos = new Point(x, y);
-					if (!_board.IsNone(pos)) continue;
-					var buf = GetWeight(pos);
-					if (buf > max) { max = buf; res = pos; }
+					if (map[x, y] != CellValue.None) continue;
+					var buf = GetWeight(pos, map);
+					if (buf > max) { max = buf; resp = pos; }
 				}
-			return res;
+			return resp;
 		}
 
-		private int GetWeight(Point pos)
+		private int GetWeight(Point pos, CellValue[,] map)
 		{
-			var weight = 0;
-			foreach (var dir in Direction.Values)
-			{
-				weight += GetOneNeighborWeight(pos, dir);
-				weight += GetOneNeighborWeight(pos, dir * new Point(2));
-			}
-
-			if (_board.IsConnectAmount(pos, CellValue.User, 2)) weight += 10;
-			if (_board.IsConnectAmount(pos, CellValue.Bot, 2)) weight += 20;
-			if (_board.IsConnectAmount(pos, CellValue.User, 3)) weight += 40;
-			if (_board.IsConnectAmount(pos, CellValue.Bot, 3)) weight += 80;
-			if (_board.IsConnectAmount(pos, CellValue.User, 4)) weight += 160;
-			if (_board.IsConnectAmount(pos, CellValue.Bot, 4)) weight += 320;
-			if (_board.IsConnectAmount(pos, CellValue.User, 5)) weight += 640;
-			if (_board.IsConnectAmount(pos, CellValue.Bot, 5)) weight += 1280;
-
+			var weight = Direction.Values.Sum(dir => GetOneNeighborWeight(pos, dir, map));
+			weight += (int)Math.Pow(ConnectInRange(CellValue.Bot, map, pos, 2), 3);
+			weight += (int)Math.Pow(ConnectInRange(CellValue.User, map, pos, 2), 2);
 			return weight;
 		}
 
-		private int GetOneNeighborWeight(Point pos, Point dir)
+		private int GetOneNeighborWeight(Point pos, Point dir, CellValue[,] map)
 		{
-			var newp = pos + dir;
-			if (!_board.InBourd(newp)) return 0;
-			if (_board.GetValue(newp) == CellValue.User) return 1;
-			if (_board.GetValue(newp) == CellValue.Bot) return 2;
-			return 0;
+			var weight = 0;
+			pos += dir;
+			if (!InRange(pos, map)) return 0;
+
+			if (map[pos.X, pos.Y] == CellValue.User) weight += 1;
+			if (map[pos.X, pos.Y] == CellValue.Bot) weight += 2;
+			return weight;
+		}
+
+		private int ConnectInRange(CellValue val, CellValue[,] map, Point pos, int range)
+		{
+			return
+				CountAmount(val, map, pos, Direction.Down, Direction.Up, range) +
+				CountAmount(val, map, pos, Direction.Right, Direction.Left, range) +
+				CountAmount(val, map, pos, Direction.DownLeft, Direction.UpRight, range) +
+				CountAmount(val, map, pos, Direction.LeftUp, Direction.RightDown, range);
+		}
+
+		private int CountAmount(CellValue value, CellValue[,] map, Point pos, Point dir1, Point dir2, int range)
+		{
+			var count = 1;
+			Point check;
+			for (var i = 1; i <= range; i++)
+			{
+				check = pos + dir1 * new Point(i);
+				if (!InRange(check, map)) break;
+				if (map[check.X, check.Y] == value) count++;
+				else break;
+			}
+
+			for (var i = 1; i <= range; i++)
+			{
+				check = pos + dir2 * new Point(i);
+				if (!InRange(check, map)) break;
+				if (map[check.X, check.Y] == value) count++;
+				else break;
+			}
+			return count;
 		}
 	}
 }
